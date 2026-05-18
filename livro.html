@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Controle de Livros</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+body{
+    background:#f4f6fb;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* SIDEBAR FIXA */
+.sidebar{
+    width:260px;
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    background:linear-gradient(180deg,#071739,#0b2b63);
+    padding:25px 15px;
+    overflow-y:auto;
+}
+
+/* LOGO */
+.logo{
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:40px;
+}
+
+/* MENU */
+.menu-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:white;
+    text-decoration:none;
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:10px;
+    transition:0.3s;
+}
+
+.menu-link:hover{
+    background:#2563eb;
+}
+
+.menu-link.active{
+    background:#2563eb;
+}
+
+/* CONTEÚDO */
+.main-content{
+    margin-left:260px;
+    padding:35px;
+}
+
+/* TOPO */
+.page-title{
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.subtitulo{
+    color:#777;
+}
+
+/* BOTÃO */
+.btn-novo{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.btn-novo:hover{
+    background:#1d4ed8;
+}
+
+/* CARD */
+.card-table{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* PESQUISA E FILTROS */
+.search-box{
+    position:relative;
+}
+
+.search-box i{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#999;
+}
+
+.search-box input{
+    padding-left:45px;
+}
+
+.form-control, .form-select{
+    border-radius:12px;
+    padding:12px;
+    border: 1px solid #dee2e6;
+}
+
+.form-control:focus, .form-select:focus{
+    box-shadow:none;
+    border-color:#2563eb;
+}
+
+.btn-filtro{
+    border-radius:12px;
+    padding:12px 18px;
+    border: 1px solid #dee2e6;
+    background: white;
+}
+
+.btn-filtro:hover {
+    background: #f8f9fa;
+}
+
+/* TABELA */
+.table{
+    vertical-align:middle;
+}
+
+.table th{
+    color:#6b7280;
+    font-size:12px;
+    font-weight:700;
+    padding:18px;
+    text-transform: uppercase;
+}
+
+.table td{
+    padding:18px;
+    color: #374151;
+    font-size: 14px;
+}
+
+/* BOTÕES AÇÕES */
+.btn-action{
+    width:36px;
+    height:36px;
+    border-radius:8px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.btn-edit{
+    color:#2563eb;
+}
+
+.btn-edit:hover {
+    background:#eff6ff;
+    border-color: #2563eb;
+}
+
+.btn-delete{
+    color:#dc2626;
+}
+
+.btn-delete:hover {
+    background:#fee2e2;
+    border-color: #dc2626;
+}
+
+/* PAGINAÇÃO */
+.pagination .page-link{
+    border: 1px solid #e5e7eb;
+    border-radius:8px;
+    margin:0 4px;
+    color:#4b5563;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.pagination .active .page-link{
+    background:#e0e7ff;
+    color: #2563eb;
+    border-color: #e0e7ff;
+    font-weight: bold;
+}
+
+.pagination .page-link:hover {
+    background:#f3f4f6;
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+    }
+    .main-content{
+        margin-left:0;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <i class="fa-solid fa-book"></i>
+        Biblioteca
+    </div>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+    </a>
+
+    <a href="#" class="menu-link active">
+        <i class="fa-solid fa-book-open"></i>
+        Livros
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-users"></i>
+        Clientes
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+        Empréstimos
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-book-bookmark"></i>
+        Reservas
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-rotate-left"></i>
+        Devoluções
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-user-gear"></i>
+        Usuários
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-chart-column"></i>
+        Relatórios
+    </a>
+
+    <a href="#" class="menu-link">
+        <i class="fa-solid fa-gear"></i>
+        Configurações
+    </a>
+</div>
+
+<div class="main-content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="page-title">Livros</h2>
+            <p class="subtitulo mb-0">Gerencie o acervo da biblioteca</p>
+        </div>
+        <button class="btn-novo">
+            <i class="fa-solid fa-plus me-1"></i>
+            Novo livro
+        </button>
+    </div>
+
+    <div class="card card-table p-4">
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-7">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="form-control" placeholder="Pesquisar por nome, autor ou ISBN...">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <select class="form-select text-secondary">
+                    <option selected>Todos os gêneros</option>
+                    <option value="1">Romance</option>
+                    <option value="2">Ficção Científica</option>
+                    <option value="3">Infantil</option>
+                    <option value="4">Drama</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn w-100 btn-filtro text-secondary fw-semibold">
+                    <i class="fa-solid fa-filter me-1"></i>
+                    Filtrar
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Autor</th>
+                        <th>ISBN</th>
+                        <th>Gênero</th>
+                        <th>Ano</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">Dom Casmurro</td>
+                        <td>Machado de Assis</td>
+                        <td>978-85-359-0270-7</td>
+                        <td>Romance</td>
+                        <td>1899</td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button class="btn-action btn-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button class="btn-action btn-delete">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="fw-bold">1984</td>
+                        <td>George Orwell</td>
+                        <td>978-85-400-0573-1</td>
+                        <td>Ficção Científica</td>
+                        <td>1949</td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button class="btn-action btn-edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button class="btn-action btn-delete">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+            <p class="mb-0 text-secondary" style="font-size: 14px;">
+                Mostrando 1 a 2 de 2 livros
+            </p>
+
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled">
+                        <a class="page-link text-secondary bg-transparent" href="#">
+                            <i class="fa-solid fa-chevron-left" style="font-size: 12px;"></i>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link text-secondary bg-transparent" href="#">
+                            <i class="fa-solid fa-chevron-right" style="font-size: 12px;"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
